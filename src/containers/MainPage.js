@@ -2,16 +2,18 @@ import React from 'react';
 import styled from 'styled-components'
 import { Button } from '@material-ui/core';
 import Pic from "../assets/main-page.png"
-import logo from "../assets/social-chat-icon.png"
+
+import {useSelector} from "react-redux"
+import HeaderComp from '../components/Header';
+
 const MainPage=(props)=> {
+    const isAuth=useSelector(state=>state.Auth.isAuth)
+    const buttonHandler=()=>{
+        props.history.push("/sign-in")
+    }
     return (
         <Container>
-            <Header>
-                <List href="/"><Icon src={logo} alt="Social-Chat-Icon"></Icon>  </List>
-                <List href="/" >About</List>
-                <List href="/" >Company</List>
-                <List href="/" >Services</List>
-            </Header>
+            <HeaderComp/>
         <MainWrapper>
             <TextContainer>
                 <Title>
@@ -20,8 +22,10 @@ const MainPage=(props)=> {
                 <SubTitle>
                     Anyone willing to get acquainted and communicate can get started for free and use it without limits
                 </SubTitle>
-                <Button variant="contained" color="primary"   style={{width:"10rem",borderRadius:"0.6rem",margin:0,backgroundColor:"#000",padding:"0.5rem"}} >
-                    Get Started
+                <Button variant="contained" color="primary" 
+                onClick={buttonHandler}
+                style={{width:"10rem",borderRadius:"0.6rem",margin:0,backgroundColor:"#000",padding:"0.5rem"}} >
+                    {isAuth?"Continue":"Get Started"}
                 </Button>
             </TextContainer>
             <PicContainer>
@@ -38,28 +42,7 @@ const Container=styled.div`
 
 `;
 
-const Header=styled.div`
-    position:absolute;
-    display:flex;
-    align-items:center;
-`;
 
-const Icon=styled.img`
-    height:3rem;
-    width:3rem;
-    margin-right:0.5rem;
-`
-
-const List=styled.a`
-    text-decoration:none;
-    padding:1rem;
-    color:#848484;
-    margin:1rem;
-    &:hover{
-        color:#000;
-    }
-    
-`;
 
 const MainWrapper=styled.div`
     display:flex;
