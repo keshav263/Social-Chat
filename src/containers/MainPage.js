@@ -4,10 +4,10 @@ import { Button } from "@material-ui/core";
 import Pic from "../assets/main-page.png";
 import { useSelector } from "react-redux";
 import HeaderComp from "../components/Header";
+import { device } from "../device";
 
 const MainPage = (props) => {
 	const isAuth = useSelector((state) => state.Auth.isAuth);
-	console.log(isAuth);
 	const buttonHandler = () => {
 		if (isAuth) {
 			props.history.replace("/home");
@@ -57,7 +57,6 @@ const Container = styled.div``;
 const MainWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
-
 	height: 100vh;
 	width: 100vw;
 `;
@@ -69,12 +68,23 @@ const TextContainer = styled.div`
 	justify-content: center;
 	width: 50vw;
 	height: 100vh;
+	@media (max-width: 788px) {
+		width: 100%;
+	}
 `;
 
 const Title = styled.h1`
 	font-family: "Quicksand", sans-serif;
 	margin: 0;
 	font-size: 5rem;
+
+	@media (max-width: 1080px) {
+		font-size: 4rem;
+	}
+
+	@media (min-width: 1450px) {
+		font-size: 7rem;
+	}
 `;
 
 const HighlightedTitle = styled(Title)`
@@ -91,18 +101,24 @@ const SubTitle = styled.h3`
 `;
 
 const PicContainer = styled.div`
+	display: flex;
 	background-color: #efece8;
 	width: 50vw;
-	display: flex;
+
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
+	@media (max-width: 788px) {
+		display: none;
+	}
 `;
 
 const Image = styled.img`
 	background-size: cover;
-
 	background-repeat: no-repeat;
+	@media (max-width: 1080px) {
+		width: 50vw;
+	}
 `;
 export default MainPage;
