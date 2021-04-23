@@ -1,52 +1,29 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import HeaderComp from "../components/Header";
-import { TextField, Button, CircularProgress } from "@material-ui/core";
-import firebase from "../firebase/firebase";
+import { Button } from "@material-ui/core";
+import { provider, firebase } from "../firebase/firebase";
+import { useDispatch } from "react-redux";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import * as authActions from "../store/actions/Auth";
 
 const SignInPage = (props) => {
-	const recaptcha = useRef(null);
-	const [phoneNumber, setPhoneNumber] = useState("");
-	const [error, setError] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
-
+	const dispatch = useDispatch();
 	const signInButtonHandler = async () => {
-		if (phoneNumber.length !== 10) {
-			setError(true);
-			return;
-		}
-		const editedPhoneNumber = "+91".concat(phoneNumber);
-		const appVerifier = window.recaptchaVerifier;
-		setIsLoading(true);
-		try {
-			const confirmationResult = await firebase
-				.auth()
-				.signInWithPhoneNumber(editedPhoneNumber, appVerifier);
-			setIsLoading(false);
-
-			window.confirmationResult = confirmationResult;
-			props.history.push({
-				pathname: "/sign-in-otp",
-				state: phoneNumber,
+		firebase
+			.auth()
+			.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+			.then(() => {
+				firebase
+					.auth()
+					.signInWithPopup(provider)
+					.then((result) => {
+						dispatch(authActions.signIn());
+						props.history.push("/home");
+					})
+					.catch((err) => alert(err.message));
 			});
-		} catch (error) {
-			console.log(error);
-			window.recaptchaVerifier.render().then(function (widgetId) {
-				// eslint-disable-next-line no-undef
-				grecaptcha.reset(widgetId);
-			});
-			setIsLoading(false);
-		}
 	};
-	useEffect(() => {
-		window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-			recaptcha.current,
-			{
-				size: "invisible",
-				callback: function (response) {},
-			}
-		);
-	}, []);
 
 	return (
 		<Container>
@@ -56,7 +33,7 @@ const SignInPage = (props) => {
 				<Title>Login to continue</Title>
 				<Animation>
 					<lottie-player
-						src="https://assets5.lottiefiles.com/private_files/lf30_oi23m99t.json"
+						src="https://assets7.lottiefiles.com/packages/lf20_QpolL2.json"
 						mode="normal"
 						background="#fff"
 						speed="1"
@@ -64,52 +41,14 @@ const SignInPage = (props) => {
 						autoplay
 					></lottie-player>
 				</Animation>
-				<TextField
-					required={true}
-					error={error}
-					type="text"
-					label="Phone Number"
-					value={phoneNumber}
-					onChange={(e) => setPhoneNumber(e.target.value)}
-					variant="outlined"
-					style={{ width: "100%" }}
-					inputProps={{ maxLength: 10, minLength: 10 }}
-					helperText={
-						error
-							? "Must be 10-digit number"
-							: "We will be sending a one time password."
-					}
-				/>
-
-				<Captcha ref={recaptcha}></Captcha>
-				{isLoading ? (
-					<ProgressContainer>
-						<CircularProgress
-							size="small"
-							style={{
-								// display: "flex",
-								// alignItems: "center",
-								// justifyContent: "center",
-								width: "2rem",
-								height: "2rem",
-								margin: "0 auto",
-							}}
-						/>
-					</ProgressContainer>
-				) : (
-					<Button
-						variant="contained"
-						onClick={signInButtonHandler}
-						style={{
-							margin: "1rem auto",
-							width: "100%",
-							background: "#000",
-							color: "#fff",
-						}}
-					>
-						Continue
-					</Button>
-				)}
+				<StyledButton
+					color="primary"
+					variant="contained"
+					startIcon={<FavoriteIcon />}
+					onClick={signInButtonHandler}
+				>
+					Sign In With Google
+				</StyledButton>
 			</SubContainer>
 		</Container>
 	);
@@ -130,23 +69,31 @@ const SubContainer = styled.div`
 	height: 45vh;
 	width: 45vh;
 	border-radius: 2rem;
+	@media (max-width: 512px) {
+		width: 35vh;
+		height: 35vh;
+	}
+	@media (max-width: 380px) {
+		width: 30vh;
+		height: 30vh;
+	}
 `;
 
 const Title = styled.h3`
 	font-family: "Quicksand", sans-serif;
 `;
 const Animation = styled.div`
-	height: 10rem;
-	width: 10rem;
+	height: 15rem;
+	width: 15rem;
 	margin: auto;
+	@media (max-width: 512px) {
+		width: 10rem;
+		height: 10rem;
+	}
 `;
-const Captcha = styled.div`
-	margin: 1rem auto;
-`;
-
-const ProgressContainer = styled.div`
-	width: 2rem;
-	margin: 0 auto;
+const StyledButton = styled(Button)`
+	width: 100%;
+	margin: 1rem;
 `;
 
 export default SignInPage;

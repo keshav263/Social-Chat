@@ -2,8 +2,8 @@ import { SIGN_IN } from "../actions/Auth";
 
 const initialState = {
 	username: "",
-	phoneNumber: "",
-	photoUrl: "",
+	email: "",
+	displayPicture: "",
 	isAuth: false,
 	userId: "",
 	setDidTryLogin: false,
@@ -15,10 +15,10 @@ export default function AuthReducer(state = initialState, action) {
 			return {
 				isAuth: true,
 				setDidTryLogin: true,
-				phoneNumber: action.payload.phoneNumber,
+				email: action.payload.email,
 				userId: action.payload.uid,
 				username: action.payload.username,
-				photoUrl: action.payload.photoUrl,
+				displayPicture: action.payload.displayPicture,
 			};
 		}
 		default:

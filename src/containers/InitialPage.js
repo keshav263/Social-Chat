@@ -3,7 +3,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import * as authActions from "../store/actions/Auth";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import firebase from "../firebase/firebase";
+import { firebase } from "../firebase/firebase";
 
 export default function InitialPage(props) {
 	const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export default function InitialPage(props) {
 		firebase.auth().onAuthStateChanged(async (user) => {
 			console.log(user);
 			if (user) {
-				await dispatch(authActions.autoLogin());
+				await dispatch(authActions.signIn());
 				return props.history.push("home");
 			} else {
 				return props.history.push("get-started");

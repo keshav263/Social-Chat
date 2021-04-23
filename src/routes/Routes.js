@@ -3,7 +3,6 @@ import React from "react";
 import MainPage from "../containers/MainPage";
 import SignInPage from "../containers/SignInPage";
 import MaintenancePage from "../containers/MaintenancePage";
-import OtpPage from "../containers/OtpPage";
 import InitialPage from "../containers/InitialPage";
 import HomePage from "../containers/HomePage";
 // import {useSelector} from "react-redux"
@@ -15,7 +14,6 @@ const Routes = () => {
 			<Route exact path="/" component={InitialPage} />
 			<Route exact path="/get-started" component={MainPage} />
 			<Route exact path="/sign-in" component={SignInPage} />
-			<Route exact path="/sign-in-otp" component={OtpPage} />
 			<Route exact path="/maintenance" component={MaintenancePage} />
 			<Route exact path="/home" component={HomePage} />
 		</Switch>
