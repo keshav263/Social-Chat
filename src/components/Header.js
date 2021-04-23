@@ -1,11 +1,13 @@
 import React from "react";
 import logo from "../assets/social-chat-icon.png";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const HeaderComp = (props) => {
+	const history = useHistory();
 	return (
 		<Header>
-			<List href="/get-started">
+			<List onClick={() => history.push("/get-started")}>
 				<Icon src={logo} alt="Social-Chat-Icon"></Icon>{" "}
 			</List>
 			<List href="/maintenance">About</List>

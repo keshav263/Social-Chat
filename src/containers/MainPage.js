@@ -2,13 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 import Pic from "../assets/main-page.png";
-
 import { useSelector } from "react-redux";
 import HeaderComp from "../components/Header";
 
 const MainPage = (props) => {
 	const isAuth = useSelector((state) => state.Auth.isAuth);
+	console.log(isAuth);
 	const buttonHandler = () => {
+		if (isAuth) {
+			props.history.replace("/home");
+			return;
+		}
 		props.history.push("/sign-in");
 	};
 
