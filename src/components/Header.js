@@ -2,7 +2,6 @@ import React from "react";
 import logo from "../assets/social-chat-icon.png";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { device } from "../device";
 
 const HeaderComp = (props) => {
 	const history = useHistory();
