@@ -4,6 +4,8 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import TuneIcon from "@material-ui/icons/Tune";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import { useDispatch } from "react-redux";
+import * as authActions from "../../store/actions/Auth";
 
 const Container = styled.div`
 	display: flex;
@@ -19,6 +21,7 @@ const Title = styled.h6`
 
 function Items(props) {
 	const [isHovered, setIsHovered] = useState(null);
+	const dispatch = useDispatch();
 	return (
 		<>
 			<Container
@@ -49,13 +52,11 @@ function Items(props) {
 			>
 				<ChatBubbleOutlineIcon
 					style={{
-						color: isHovered === "2" ? "#000" : "#9aa0b1",
+						color: "#000",
 						fontSize: 15,
 					}}
 				/>
-				<Title style={{ color: isHovered === "2" ? "#000" : "#9aa0b1" }}>
-					Chats
-				</Title>
+				<Title style={{ color: "#000" }}>Chats</Title>
 			</Container>
 			<Container
 				onMouseEnter={() => {
@@ -77,6 +78,9 @@ function Items(props) {
 			</Container>
 			<Container
 				style={{ position: "absolute", bottom: "15%" }}
+				onClick={() => {
+					dispatch(authActions.signOut());
+				}}
 				onMouseEnter={() => {
 					setIsHovered("4");
 				}}

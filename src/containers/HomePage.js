@@ -5,6 +5,7 @@ import background from "../assets/background.png";
 import Messages from "../components/Messages";
 import NavBar from "../components/NavBar";
 import SideBar from "../components/SideBar";
+import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 const HomePage = (props) => {
 	const user = useSelector((state) => state.Auth);
@@ -19,9 +20,14 @@ const HomePage = (props) => {
 			<Image />
 			<Container>
 				<SubContainer>
-					<NavBar />
-					<SideBar />
-					<Messages />
+					<Router>
+						<NavBar />
+						<SideBar />
+						<Switch>
+							<Route path="/rooms/:roomId" component={Messages} />
+							<Route path="/" component={Messages} />
+						</Switch>
+					</Router>
 				</SubContainer>
 			</Container>
 		</>

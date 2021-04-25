@@ -1,4 +1,4 @@
-import { SIGN_IN } from "../actions/Auth";
+import { SIGN_IN, SIGN_OUT } from "../actions/Auth";
 
 const initialState = {
 	username: "",
@@ -20,6 +20,9 @@ export default function AuthReducer(state = initialState, action) {
 				username: action.payload.username,
 				displayPicture: action.payload.displayPicture,
 			};
+		}
+		case SIGN_OUT: {
+			return initialState;
 		}
 		default:
 			return state;

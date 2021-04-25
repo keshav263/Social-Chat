@@ -1,5 +1,6 @@
 import { firebase } from "../../firebase/firebase";
 export const SIGN_IN = "SIGN_IN";
+export const SIGN_OUT = "SIGN_OUT";
 
 export const signIn = () => {
 	return async (dispatch) => {
@@ -12,5 +13,19 @@ export const signIn = () => {
 			type: SIGN_IN,
 			payload: { uid, email, displayPicture, username },
 		});
+	};
+};
+
+export const signOut = () => {
+	return async (dispatch) => {
+		firebase
+			.auth()
+			.signOut()
+			.then(() => {
+				dispatch({ type: SIGN_OUT });
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 };
