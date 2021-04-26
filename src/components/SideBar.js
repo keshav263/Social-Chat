@@ -100,6 +100,17 @@ const Container = styled.div`
 	padding: 3rem;
 	height: 100%;
 	z-index: 2;
+	@media (max-width: 980px) {
+		padding: 3rem 1rem;
+	}
+	@media (max-width: 855px) {
+		padding: 3rem;
+		width: 50%;
+		box-sizing: border-box;
+	}
+	@media (max-width: 720px) {
+		padding: 3rem 1rem;
+	}
 `;
 
 const SearchBarContainer = styled.div`

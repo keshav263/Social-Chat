@@ -62,6 +62,18 @@ const SubContainer = styled.div`
 	background-color: #fefeff;
 	border-radius: 2rem;
 	opacity: 1;
+	@media (max-width: 1080px) {
+		width: 95vw;
+	}
+	@media (max-width: 980px) {
+		width: 100vw;
+	}
+	@media (max-width: 855px) {
+		width: 95vw;
+	}
+	@media (max-width: 720px) {
+		width: 100vw;
+	}
 `;
 
 export default HomePage;

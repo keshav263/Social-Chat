@@ -20,6 +20,9 @@ const Container = styled.div`
 	height: 100%;
 	padding: 3rem;
 	z-index: 1;
+	@media (max-width: 855px) {
+		display: none;
+	}
 `;
 
 const Title = styled.span`

@@ -79,6 +79,9 @@ function Messages() {
 
 	return (
 		<Container>
+			<Title>
+				<Title style={{ color: " #ff4f25" }}>Social</Title>Chat
+			</Title>
 			<SenderContainer>
 				<PersonOutlineIcon style={{ fontSize: 20 }} />
 				<Sender>{roomName}</Sender>
@@ -159,7 +162,30 @@ const Container = styled.div`
 	height: 100%;
 	padding-top: 7rem;
 	z-index: 2;
+	position: relative;
 	box-sizing: border-box;
+	@media (max-width: 980px) {
+		padding: 0 1rem;
+		padding-top: 7rem;
+	}
+	@media (max-width: 855px) {
+		padding: 0 2rem;
+		padding-top: 3rem;
+	}
+	@media (max-width: 855px) {
+		width: 70%;
+	}
+`;
+
+const Title = styled.span`
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-bottom: 2rem;
+
+	display: none;
+	@media (max-width: 855px) {
+		display: inline-block;
+	}
 `;
 
 const SenderContainer = styled.div`
@@ -204,8 +230,12 @@ const SendBarContainer = styled.div`
 	align-items: center;
 	position: fixed;
 	box-shadow: rgb(0 0 0 / 8%) 0px 10px 20px 0px;
-	width: 35%;
+	width: 34%;
+
 	bottom: 15%;
+	@media (max-width: 980px) {
+		width: 45%;
+	}
 `;
 
 export default Messages;

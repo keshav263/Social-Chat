@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 function ChatItem({ name, id }) {
 	const classes = useStyles();
 	const [messages, setMessages] = useState([]);
+	const [seed, setSeed] = useState("");
 	const getDateFormat = (message) => {
 		const d = moment(message?.timestamp?.toDate(), "YYYYMMDD").fromNow();
 		return d;
@@ -32,13 +33,17 @@ function ChatItem({ name, id }) {
 		}
 	}, [id]);
 
+	useEffect(() => {
+		setSeed(Math.floor(Math.random() * 5000));
+	}, []);
+
 	return (
 		<Link to={`/rooms/${id}`} key={id}>
 			<Container>
 				<Avatar
 					className={classes.small}
 					style={{ margin: "10px 10px" }}
-					src="https://avatars.dicebear.com/api/human/1234.svg"
+					src={`https://avatars.dicebear.com/api/human/${seed}.svg`}
 				/>
 				<Content>
 					<Name>{name}</Name>
